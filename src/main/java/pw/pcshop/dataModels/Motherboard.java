@@ -24,7 +24,7 @@ public class Motherboard {
     @Column
     private String manufacturer;
 
-    @Column
+    @Column(unique = true)
     private String series;
 
     @Column

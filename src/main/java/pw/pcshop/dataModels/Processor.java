@@ -24,7 +24,7 @@ public class Processor {
     @Column
     private String manufacturer;
 
-    @Column
+    @Column(unique = true)
     private String series;
 
     @Column

@@ -36,7 +36,7 @@ public class Computer {
     @JoinColumn(name = "motherboard_id")
     private Motherboard motherboard;
 
-    @Column
+    @Column(unique = true)
     private String model;
 
     @Column
