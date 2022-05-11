@@ -33,7 +33,7 @@ public class User {
     @Column
     private Date birthDate;
 
-    @Column(unique = true)
+    @Column(length = 11, unique = true)
     private String PESEL;
 
     @Column
