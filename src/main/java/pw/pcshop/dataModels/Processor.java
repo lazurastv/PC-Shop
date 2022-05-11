@@ -18,7 +18,7 @@ public class Processor {
     private Long id;
 
     @Column
-    private String company;
+    private String manufacturer;
 
     @Column
     private String series;
