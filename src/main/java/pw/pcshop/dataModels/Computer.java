@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -16,6 +18,18 @@ public class Computer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @OneToOne
+    @JoinColumn(name = "processor_id")
+    private Processor processor;
+
+    @OneToOne
+    @JoinColumn(name = "graphicsCard_id")
+    private GraphicsCard graphicsCard;
+
+    @OneToOne
+    @JoinColumn(name = "motherboard_id")
+    private Motherboard motherboard;
 
     @Column
     private String model;
