@@ -30,5 +30,5 @@ public class Motherboard {
     private String socket;
 
     @Column
-    private String maxRAM;
+    private int maxRAM;
 }
