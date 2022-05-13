@@ -1,5 +1,7 @@
 package pw.pcshop.verifiers;
 
+import pw.pcshop.verifiers.verificationResults.VerificationResult;
+
 public class ProcessorVerifier {
     private static VerificationResult verifyManufacter(String value) {
         if (value != "Intel" && value != "AMD") {
