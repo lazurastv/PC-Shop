@@ -1,13 +1,21 @@
 package pw.pcshop.verifiers;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import pw.pcshop.verifiers.verificationResults.NonNumericResult;
 import pw.pcshop.verifiers.verificationResults.VerificationResult;
 
 public abstract class PeselVerifier {
     public static int getYear(String PESEL) {
-        return Integer.parseInt(PESEL.substring(0, 2));
+        String year = PESEL.substring(0, 2);
+        int month = getMonth(PESEL);
+        if (month <= 12) {
+            year = "19" + year;
+        } else {
+            year = "20" + year;
+        }
+        return Integer.parseInt(year);
     }
 
     private static int getMonth(String PESEL) {
@@ -15,15 +23,17 @@ public abstract class PeselVerifier {
     }
 
     public static int getTrueMonth(String PESEL) {
-        int month = getMonth(PESEL);
-        if (month > 12) {
-            return month - 20;
-        }
-        return month;
+        return getMonth(PESEL) % 20;
     }
 
     public static int getDay(String PESEL) {
         return Integer.parseInt(PESEL.substring(4, 6));
+    }
+
+    public static Date getDate(String PESEL) {
+        Calendar date = Calendar.getInstance();
+        date.set(getYear(PESEL), getTrueMonth(PESEL), getDay(PESEL));
+        return date.getTime();
     }
 
     private static int getControlNumber(String PESEL) {

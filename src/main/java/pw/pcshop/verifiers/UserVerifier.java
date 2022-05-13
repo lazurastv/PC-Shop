@@ -1,6 +1,5 @@
 package pw.pcshop.verifiers;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import pw.pcshop.verifiers.verificationResults.NonAlphabetic;
