@@ -1,6 +1,22 @@
 package pw.pcshop.verifiers;
 
+import pw.pcshop.addModels.AddUser;
+
 public class UserVerifier {
+    public static VerificationResult verifyUser(AddUser user) {
+        try {
+            VerifierUtils.throwIfNotCorrect(verifyName(user.name));
+            VerifierUtils.throwIfNotCorrect(verifyLastName(user.lastName));
+            VerifierUtils.throwIfNotCorrect(verifyEmail(user.email));
+            VerifierUtils.throwIfNotCorrect(PeselVerifier.verifyPESEL(user.PESEL, user.birthDate));
+            VerifierUtils.throwIfNotCorrect(verifyPhoneNumber(user.phoneNumber));
+            VerifierUtils.throwIfNotCorrect(verifyCreditCardNumber(user.creditCardNumber));
+        } catch (VerificationException v) {
+            return new VerificationResult(v.getMessage());
+        }
+        return new VerificationResult();
+    }
+
     private static VerificationResult verifyName(String value) {
         return VerifierUtils.verifyIsWord("Name", value);
     }

@@ -3,7 +3,7 @@ package pw.pcshop.verifiers;
 import pw.pcshop.addModels.AddGraphicsCard;
 
 public class GraphicsCardVerifier {
-    public VerificationResult verifyGraphicsCard(AddGraphicsCard graphicsCard) {
+    public static VerificationResult verifyGraphicsCard(AddGraphicsCard graphicsCard) {
         try {
             VerifierUtils.throwIfNotCorrect(verifyManufacturer(graphicsCard.manufacturer));
             VerifierUtils.throwIfNotCorrect(verifyVRAM(graphicsCard.vRAM));
@@ -17,29 +17,29 @@ public class GraphicsCardVerifier {
         return new VerificationResult();
     }
 
-    private VerificationResult verifyManufacturer(String value) {
+    private static VerificationResult verifyManufacturer(String value) {
         return VerifierUtils.verifyInList("Manufacturer",
                 new String[] { "AMD", "NVIDIA", "Zotac", "ASUS", "EVGA", "ASRock" }, value);
     }
 
-    private VerificationResult verifyVRAM(int value) {
+    private static VerificationResult verifyVRAM(int value) {
         return VerifierUtils.verifyIsPositive("VRAM", value);
     }
 
-    private VerificationResult verifyMemoryType(String value) {
+    private static VerificationResult verifyMemoryType(String value) {
         return VerifierUtils.verifyInList("Memory type", new String[] { "GDDR", "GDDR2", "GDDR3", "GDDR4", "GDDR5" },
                 value);
     }
 
-    private VerificationResult verifyLength(int value) {
+    private static VerificationResult verifyLength(int value) {
         return VerifierUtils.verifyIsPositive("Length", value);
     }
 
-    private VerificationResult verifyWidth(int value) {
+    private static VerificationResult verifyWidth(int value) {
         return VerifierUtils.verifyIsPositive("Width", value);
     }
 
-    private VerificationResult verifyHeight(int value) {
+    private static VerificationResult verifyHeight(int value) {
         return VerifierUtils.verifyIsPositive("Height", value);
     }
 }
