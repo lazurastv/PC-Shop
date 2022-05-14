@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import pw.pcshop.addModels.GraphicsCardVM;
 import pw.pcshop.dataModels.GraphicsCard;
 import pw.pcshop.repositories.GraphicsCardRepository;
 import pw.pcshop.verifiers.GraphicsCardVerifier;
 import pw.pcshop.verifiers.VerifierUtils;
+import pw.pcshop.viewModels.GraphicsCardVM;
 
 @Service
 @RequiredArgsConstructor

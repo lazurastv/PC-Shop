@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import pw.pcshop.addModels.MotherboardVM;
 import pw.pcshop.dataModels.Motherboard;
 import pw.pcshop.repositories.MotherboardRepository;
 import pw.pcshop.verifiers.MotherboardVerifier;
 import pw.pcshop.verifiers.VerifierUtils;
+import pw.pcshop.viewModels.MotherboardVM;
 
 @Service
 @RequiredArgsConstructor

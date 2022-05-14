@@ -1,4 +1,4 @@
-package pw.pcshop.addModels;
+package pw.pcshop.viewModels;
 
 import java.util.ArrayList;
 import java.util.Date;

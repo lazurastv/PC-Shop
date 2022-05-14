@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import pw.pcshop.addModels.ComputerVM;
 import pw.pcshop.dataModels.Computer;
 import pw.pcshop.repositories.ComputerRepository;
 import pw.pcshop.repositories.GraphicsCardRepository;
@@ -14,6 +13,7 @@ import pw.pcshop.repositories.ProcessorRepository;
 import pw.pcshop.repositories.UserRepository;
 import pw.pcshop.verifiers.ComputerVerifier;
 import pw.pcshop.verifiers.VerifierUtils;
+import pw.pcshop.viewModels.ComputerVM;
 
 @Service
 @RequiredArgsConstructor

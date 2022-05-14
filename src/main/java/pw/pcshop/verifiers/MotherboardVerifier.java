@@ -1,6 +1,6 @@
 package pw.pcshop.verifiers;
 
-import pw.pcshop.addModels.MotherboardVM;
+import pw.pcshop.viewModels.MotherboardVM;
 
 public class MotherboardVerifier {
     public static VerificationResult verifyMotherboard(MotherboardVM motherboard) {

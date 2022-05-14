@@ -1,6 +1,6 @@
 package pw.pcshop.verifiers;
 
-import pw.pcshop.addModels.UserVM;
+import pw.pcshop.viewModels.UserVM;
 
 public class UserVerifier {
     public static VerificationResult verifyUser(UserVM user) {

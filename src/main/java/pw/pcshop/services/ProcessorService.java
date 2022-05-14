@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import pw.pcshop.addModels.ProcessorVM;
 import pw.pcshop.dataModels.Processor;
 import pw.pcshop.repositories.ProcessorRepository;
 import pw.pcshop.verifiers.ProcessorVerifier;
 import pw.pcshop.verifiers.VerifierUtils;
+import pw.pcshop.viewModels.ProcessorVM;
 
 @Service
 @RequiredArgsConstructor

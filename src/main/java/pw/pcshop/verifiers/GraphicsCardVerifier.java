@@ -1,6 +1,6 @@
 package pw.pcshop.verifiers;
 
-import pw.pcshop.addModels.GraphicsCardVM;
+import pw.pcshop.viewModels.GraphicsCardVM;
 
 public class GraphicsCardVerifier {
     public static VerificationResult verifyGraphicsCard(GraphicsCardVM graphicsCard) {

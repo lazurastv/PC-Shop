@@ -1,6 +1,6 @@
 package pw.pcshop.verifiers;
 
-import pw.pcshop.addModels.ComputerVM;
+import pw.pcshop.viewModels.ComputerVM;
 
 public class ComputerVerifier {
     public static VerificationResult verifyComputer(ComputerVM computer) {

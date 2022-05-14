@@ -1,6 +1,6 @@
 package pw.pcshop.verifiers;
 
-import pw.pcshop.addModels.ProcessorVM;
+import pw.pcshop.viewModels.ProcessorVM;
 
 public class ProcessorVerifier {
     public static VerificationResult verifyProcessor(ProcessorVM processor) {
