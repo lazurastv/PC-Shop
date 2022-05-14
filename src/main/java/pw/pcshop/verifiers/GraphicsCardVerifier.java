@@ -1,6 +1,22 @@
 package pw.pcshop.verifiers;
 
+import pw.pcshop.addModels.AddGraphicsCard;
+
 public class GraphicsCardVerifier {
+    public VerificationResult verifyGraphicsCard(AddGraphicsCard graphicsCard) {
+        try {
+            VerifierUtils.throwIfNotCorrect(verifyManufacturer(graphicsCard.manufacturer));
+            VerifierUtils.throwIfNotCorrect(verifyVRAM(graphicsCard.vRAM));
+            VerifierUtils.throwIfNotCorrect(verifyMemoryType(graphicsCard.memoryType));
+            VerifierUtils.throwIfNotCorrect(verifyLength(graphicsCard.length));
+            VerifierUtils.throwIfNotCorrect(verifyWidth(graphicsCard.width));
+            VerifierUtils.throwIfNotCorrect(verifyHeight(graphicsCard.height));
+        } catch (VerificationException v) {
+            return new VerificationResult(v.getMessage());
+        }
+        return new VerificationResult();
+    }
+
     private VerificationResult verifyManufacturer(String value) {
         return VerifierUtils.verifyInList("Manufacturer",
                 new String[] { "AMD", "NVIDIA", "Zotac", "ASUS", "EVGA", "ASRock" }, value);
