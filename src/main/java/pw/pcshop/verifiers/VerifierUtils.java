@@ -1,7 +1,9 @@
 package pw.pcshop.verifiers;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 
 public abstract class VerifierUtils {
     public static boolean isLetter(char character) {
@@ -48,5 +50,35 @@ public abstract class VerifierUtils {
         givenDate.setTime(date);
 
         return givenDate.after(earliestDate) && givenDate.before(latestDate);
+    }
+
+    public static VerificationResult verifyIsNumber(String item, String value) {
+        if (!VerifierUtils.isNumeric(value)) {
+            return new VerificationResult(item + " must contain only numbers.");
+        }
+        return new VerificationResult();
+    }
+
+    public static VerificationResult verifyIsWord(String item, String value) {
+        if (!VerifierUtils.isAlphabetic(value)) {
+            return new VerificationResult(item + " must contain only letters.");
+        }
+        return new VerificationResult();
+    }
+
+    public static VerificationResult verifyIsPositive(String item, int value) {
+        if (value < 1) {
+            return new VerificationResult(item + " must be positive.");
+        }
+        return new VerificationResult();
+    }
+
+    public static VerificationResult verifyInList(String item, String[] list, String value) {
+        HashSet<String> validItems = new HashSet<>(
+                Arrays.asList(list));
+        if (!validItems.contains(value)) {
+            return new VerificationResult("Invalid " + item + ".");
+        }
+        return new VerificationResult();
     }
 }

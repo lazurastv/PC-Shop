@@ -3,9 +3,6 @@ package pw.pcshop.verifiers;
 import java.util.Calendar;
 import java.util.Date;
 
-import pw.pcshop.verifiers.verificationResults.NonNumericResult;
-import pw.pcshop.verifiers.verificationResults.VerificationResult;
-
 public abstract class PeselVerifier {
     private static int getYear(String PESEL) {
         String year = PESEL.substring(0, 2);
@@ -53,8 +50,9 @@ public abstract class PeselVerifier {
         if (value.length() != 11) {
             return new VerificationResult("Wrong PESEL length.");
         }
-        if (!VerifierUtils.isNumeric(value)) {
-            return new NonNumericResult("PESEL");
+        VerificationResult isNumeric = VerifierUtils.verifyIsNumber("PESEL", value);
+        if (!isNumeric.correct) {
+            return isNumeric;
         }
         try {
             Calendar date = Calendar.getInstance();

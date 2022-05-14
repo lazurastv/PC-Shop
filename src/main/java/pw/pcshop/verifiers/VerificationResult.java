@@ -1,4 +1,4 @@
-package pw.pcshop.verifiers.verificationResults;
+package pw.pcshop.verifiers;
 
 public class VerificationResult {
     public boolean correct;

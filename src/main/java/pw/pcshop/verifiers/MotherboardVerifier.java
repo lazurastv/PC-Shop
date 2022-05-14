@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 import pw.pcshop.dataModels.Motherboard;
-import pw.pcshop.verifiers.verificationResults.VerificationResult;
 
 public class MotherboardVerifier {
     private Motherboard motherboard;

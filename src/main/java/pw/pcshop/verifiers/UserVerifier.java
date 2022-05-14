@@ -1,23 +1,12 @@
 package pw.pcshop.verifiers;
 
-import pw.pcshop.verifiers.verificationResults.NonAlphabetic;
-import pw.pcshop.verifiers.verificationResults.NonNumericResult;
-import pw.pcshop.verifiers.verificationResults.VerificationResult;
-
 public class UserVerifier {
-    private static VerificationResult verifyAnyName(String item, String value) {
-        if (!VerifierUtils.isAlphabetic(value)) {
-            return new NonAlphabetic(item);
-        }
-        return new VerificationResult();
-    }
-
     private static VerificationResult verifyName(String value) {
-        return verifyAnyName("Name", value);
+        return VerifierUtils.verifyIsWord("Name", value);
     }
 
     private static VerificationResult verifyLastName(String value) {
-        return verifyAnyName("Last name", value);
+        return VerifierUtils.verifyIsWord("Last name", value);
     }
 
     private static VerificationResult verifyEmail(String value) {
@@ -38,18 +27,11 @@ public class UserVerifier {
         return new VerificationResult();
     }
 
-    private static VerificationResult verifyAnyNumber(String item, String value) {
-        if (!VerifierUtils.isNumeric(value)) {
-            return new NonNumericResult(item);
-        }
-        return new VerificationResult();
-    }
-
     private static VerificationResult verifyPhoneNumber(String value) {
-        return verifyAnyNumber("Phone number", value);
+        return VerifierUtils.verifyIsNumber("Phone number", value);
     }
 
     private static VerificationResult verifyCreditCardNumber(String value) {
-        return verifyAnyNumber("Credit card number", value);
+        return VerifierUtils.verifyIsNumber("Credit card number", value);
     }
 }
