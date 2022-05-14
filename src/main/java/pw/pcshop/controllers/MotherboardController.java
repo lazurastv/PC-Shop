@@ -3,6 +3,7 @@ package pw.pcshop.controllers;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import pw.pcshop.services.MotherboardService;
 import pw.pcshop.viewModels.MotherboardVM;
 
 @RestController
+@CrossOrigin
 @RequestMapping(path = "api/motherboard")
 @RequiredArgsConstructor
 public class MotherboardController {
