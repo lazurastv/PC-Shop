@@ -1,6 +1,10 @@
 package pw.pcshop.addModels;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import pw.pcshop.dataModels.User;
 
 public class UserVM {
     public String name;
@@ -11,4 +15,21 @@ public class UserVM {
     public String phoneNumber;
     public String address;
     public String creditCardNumber;
+
+    public UserVM(User user) {
+        name = user.getName();
+        lastName = user.getLastName();
+        birthDate = user.getBirthDate();
+        PESEL = user.getPESEL();
+        email = user.getEmail();
+        phoneNumber = user.getPhoneNumber();
+        address = user.getAddress();
+        creditCardNumber = user.getCreditCardNumber();
+    }
+
+    public static List<UserVM> toUserVMs(List<User> users) {
+        List<UserVM> userVMs = new ArrayList<>();
+        users.forEach(user -> userVMs.add(new UserVM(user)));
+        return userVMs;
+    }
 }

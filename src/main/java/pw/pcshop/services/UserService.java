@@ -5,24 +5,32 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import pw.pcshop.addModels.ComputerVM;
-import pw.pcshop.dataModels.Computer;
-import pw.pcshop.repositories.ComputerRepository;
-import pw.pcshop.verifiers.ComputerVerifier;
+import pw.pcshop.addModels.UserVM;
+import pw.pcshop.dataModels.User;
+import pw.pcshop.repositories.UserRepository;
+import pw.pcshop.verifiers.UserVerifier;
 import pw.pcshop.verifiers.VerifierUtils;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    private final ComputerRepository computerRepository;
+    private final UserRepository userRepository;
 
-    public List<ComputerVM> getAll() {
-        return ComputerVM.toComputerVMs(computerRepository.findAll());
+    public List<UserVM> getAll() {
+        return UserVM.toUserVMs(userRepository.findAll());
     }
 
-    public void add(ComputerVM computerVM) {
-        VerifierUtils.throwIfNotCorrect(ComputerVerifier.verifyComputer(computerVM));
-        Computer computer = new Computer();
-        computerRepository.save(computer);
+    public void add(UserVM userVM) {
+        VerifierUtils.throwIfNotCorrect(UserVerifier.verifyUser(userVM));
+        User user = new User();
+        user.setAddress(userVM.address);
+        user.setBirthDate(userVM.birthDate);
+        user.setCreditCardNumber(userVM.creditCardNumber);
+        user.setEmail(userVM.email);
+        user.setLastName(userVM.lastName);
+        user.setName(userVM.name);
+        user.setPESEL(userVM.PESEL);
+        user.setPhoneNumber(userVM.phoneNumber);
+        userRepository.save(user);
     }
 }
