@@ -4,7 +4,7 @@ export function UserList() {
     const [users, setUsers] = useState();
     const tableHeaders = ["Id", "Imię", "Nazwisko", "Data urodzenia", "PESEL", "Adres email", "Numer telefonu", "Adres", "Numer karty kredytowej"];
     if (!users) {
-        fetch("http://localhost:8080/api/user").then(response => response.json()).then(body => setUsers(body));
+        fetch("http://localhost:8080/api/user").then(response => response.json()).then(body => setUsers(body.map(user => { return { ...user, birthDate: user["birthDate"].slice(0, 10) } })));
     }
     return (
         <main>
