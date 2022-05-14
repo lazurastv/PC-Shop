@@ -1,5 +1,10 @@
 package pw.pcshop.addModels;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import pw.pcshop.dataModels.GraphicsCard;
+
 public class GraphicsCardVM {
     public String manufacturer;
     public String series;
@@ -8,4 +13,20 @@ public class GraphicsCardVM {
     public int length;
     public int width;
     public int height;
+
+    public GraphicsCardVM(GraphicsCard graphicsCard) {
+        manufacturer = graphicsCard.getManufacturer();
+        series = graphicsCard.getSeries();
+        vRAM = graphicsCard.getVRAM();
+        memoryType = graphicsCard.getMemoryType();
+        length = graphicsCard.getLength();
+        width = graphicsCard.getWidth();
+        height = graphicsCard.getHeight();
+    }
+
+    public static List<GraphicsCardVM> toGraphicsCardVMs(List<GraphicsCard> graphicsCards) {
+        List<GraphicsCardVM> graphicsCardVMs = new ArrayList<>();
+        graphicsCards.forEach(graphicsCard -> graphicsCardVMs.add(new GraphicsCardVM(graphicsCard)));
+        return graphicsCardVMs;
+    }
 }
