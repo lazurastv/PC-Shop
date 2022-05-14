@@ -3,8 +3,10 @@ package pw.pcshop.viewModels;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.NoArgsConstructor;
 import pw.pcshop.dataModels.GraphicsCard;
 
+@NoArgsConstructor
 public class GraphicsCardVM {
     public String manufacturer;
     public String series;

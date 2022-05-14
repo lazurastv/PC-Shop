@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import lombok.NoArgsConstructor;
 import pw.pcshop.dataModels.User;
 
+@NoArgsConstructor
 public class UserVM {
     public String name;
     public String lastName;

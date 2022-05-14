@@ -3,8 +3,10 @@ package pw.pcshop.viewModels;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.NoArgsConstructor;
 import pw.pcshop.dataModels.Computer;
 
+@NoArgsConstructor
 public class ComputerVM {
     public Long userId;
     public Long processorId;
