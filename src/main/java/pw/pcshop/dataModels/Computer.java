@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -24,15 +23,15 @@ public class Computer {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "processor_id")
     private Processor processor;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "graphicsCard_id")
     private GraphicsCard graphicsCard;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "motherboard_id")
     private Motherboard motherboard;
 
