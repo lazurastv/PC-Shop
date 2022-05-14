@@ -3,7 +3,7 @@ package pw.pcshop.verifiers;
 import java.util.Calendar;
 import java.util.Date;
 
-public abstract class PeselVerifier {
+public class PeselVerifier {
     private static int getYear(String PESEL) {
         String year = PESEL.substring(0, 2);
         int month = getMonth(PESEL);
