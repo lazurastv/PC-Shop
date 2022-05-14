@@ -1,7 +1,5 @@
 package pw.pcshop.verifiers;
 
-import java.util.Date;
-
 import pw.pcshop.verifiers.verificationResults.NonAlphabetic;
 import pw.pcshop.verifiers.verificationResults.NonNumericResult;
 import pw.pcshop.verifiers.verificationResults.VerificationResult;
@@ -20,13 +18,6 @@ public class UserVerifier {
 
     private static VerificationResult verifyLastName(String value) {
         return verifyAnyName("Last name", value);
-    }
-
-    private static VerificationResult verifyBirthDate(Date value) {
-        if (!VerifierUtils.isLivingBirthDate(value)) {
-            return new VerificationResult("Impossible birth date.");
-        }
-        return new VerificationResult();
     }
 
     private static VerificationResult verifyEmail(String value) {

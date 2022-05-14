@@ -7,7 +7,7 @@ import pw.pcshop.verifiers.verificationResults.NonNumericResult;
 import pw.pcshop.verifiers.verificationResults.VerificationResult;
 
 public abstract class PeselVerifier {
-    public static int getYear(String PESEL) {
+    private static int getYear(String PESEL) {
         String year = PESEL.substring(0, 2);
         int month = getMonth(PESEL);
         if (month <= 12) {
@@ -22,15 +22,15 @@ public abstract class PeselVerifier {
         return Integer.parseInt(PESEL.substring(2, 4));
     }
 
-    public static int getTrueMonth(String PESEL) {
+    private static int getTrueMonth(String PESEL) {
         return getMonth(PESEL) % 20;
     }
 
-    public static int getDay(String PESEL) {
+    private static int getDay(String PESEL) {
         return Integer.parseInt(PESEL.substring(4, 6));
     }
 
-    public static Date getDate(String PESEL) {
+    private static Date getDate(String PESEL) {
         Calendar date = Calendar.getInstance();
         date.set(getYear(PESEL), getTrueMonth(PESEL), getDay(PESEL));
         return date.getTime();
@@ -49,7 +49,7 @@ public abstract class PeselVerifier {
         return 10 - sum % 10;
     }
 
-    public static VerificationResult verifyPESEL(String value) {
+    public static VerificationResult verifyPESEL(String value, Date birthDate) {
         if (value.length() != 11) {
             return new VerificationResult("Wrong PESEL length.");
         }
@@ -59,11 +59,14 @@ public abstract class PeselVerifier {
         try {
             Calendar date = Calendar.getInstance();
             date.set(getYear(value), getTrueMonth(value), getDay(value));
+            if (!date.getTime().equals(birthDate)) {
+                return new VerificationResult("PESEL and birth date do not match.");
+            }
             if (!VerifierUtils.isLivingBirthDate(date.getTime())) {
                 return new VerificationResult("Impossible year.");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            return new VerificationResult("Invalid PESEL prefix.");
+            return new VerificationResult("Invalid PESEL date.");
         }
         if (getControlNumber(value) != calculateControlNumber(value)) {
             return new VerificationResult("Wrong control number.");
