@@ -12,6 +12,7 @@ public class ComputerVM {
     public Long processorId;
     public Long graphicsCardId;
     public Long motherboardId;
+    public List<Long> userIds;
     public String model;
     public String operatingSystem;
     public int RAM;
@@ -27,6 +28,7 @@ public class ComputerVM {
         processorId = computer.getProcessor().getId();
         graphicsCardId = computer.getGraphicsCard().getId();
         motherboardId = computer.getMotherboard().getId();
+        userIds = computer.getUsers();
         model = computer.getModel();
         operatingSystem = computer.getOperatingSystem();
         RAM = computer.getRAM();

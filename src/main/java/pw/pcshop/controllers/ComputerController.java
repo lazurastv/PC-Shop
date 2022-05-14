@@ -34,7 +34,7 @@ public class ComputerController {
     }
 
     @PutMapping
-    public void addUser(ComputerAddUser model) {
+    public void addUser(@RequestBody ComputerAddUser model) {
         computerService.addUser(model);
     }
 }

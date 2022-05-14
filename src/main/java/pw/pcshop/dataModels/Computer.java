@@ -1,5 +1,6 @@
 package pw.pcshop.dataModels;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -68,5 +69,13 @@ public class Computer {
 
     public void addUser(User user) {
         users.add(user);
+    }
+
+    public List<Long> getUsers() {
+        List<Long> users = new ArrayList<>();
+        for (User user : this.users) {
+            users.add(user.getId());
+        }
+        return users;
     }
 }
