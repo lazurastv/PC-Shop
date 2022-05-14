@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import pw.pcshop.dataModels.Computer;
+import pw.pcshop.dataModels.GraphicsCard;
 import pw.pcshop.repositories.ComputerRepository;
 import pw.pcshop.repositories.GraphicsCardRepository;
 import pw.pcshop.repositories.MotherboardRepository;
@@ -29,9 +30,10 @@ public class ComputerService {
     }
 
     public void add(ComputerVM computerVM) {
-        VerifierUtils.throwIfNotCorrect(ComputerVerifier.verifyComputer(computerVM));
+        GraphicsCard graphicsCard = graphicsCardRepository.getById(computerVM.graphicsCardId);
+        VerifierUtils.throwIfNotCorrect(ComputerVerifier.verifyComputer(computerVM, graphicsCard));
         Computer computer = new Computer();
-        computer.setGraphicsCard(graphicsCardRepository.getById(computerVM.graphicsCardId));
+        computer.setGraphicsCard(graphicsCard);
         computer.setHeight(computerVM.height);
         computer.setLength(computerVM.length);
         computer.setMemory(computerVM.memory);
