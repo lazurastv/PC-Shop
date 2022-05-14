@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +28,11 @@ public class ComputerController {
     @GetMapping
     public List<ComputerVM> getAll() {
         return computerService.getAll();
+    }
+
+    @GetMapping(path = "{id}")
+    public double getIncome(@PathVariable("id") Long id) {
+        return computerService.getIncome(id);
     }
 
     @PostMapping

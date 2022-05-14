@@ -56,4 +56,8 @@ public class ComputerService {
         computer.addUser(user);
         computerRepository.save(computer);
     }
+
+    public double getIncome(Long id) {
+        return computerRepository.getById(id).getIncome();
+    }
 }

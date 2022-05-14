@@ -78,4 +78,8 @@ public class Computer {
         }
         return users;
     }
+
+    public double getIncome() {
+        return price * users.size();
+    }
 }
