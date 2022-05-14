@@ -8,6 +8,7 @@ import pw.pcshop.dataModels.Motherboard;
 
 @NoArgsConstructor
 public class MotherboardVM {
+    public Long id;
     public String manufacturer;
     public String series;
     public String size;
@@ -15,6 +16,7 @@ public class MotherboardVM {
     public int maxRAM;
 
     public MotherboardVM(Motherboard motherboard) {
+        id = motherboard.getId();
         manufacturer = motherboard.getManufacturer();
         series = motherboard.getSeries();
         size = motherboard.getSize();

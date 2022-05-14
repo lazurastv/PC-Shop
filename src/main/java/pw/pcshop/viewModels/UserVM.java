@@ -9,6 +9,7 @@ import pw.pcshop.dataModels.User;
 
 @NoArgsConstructor
 public class UserVM {
+    public Long id;
     public String name;
     public String lastName;
     public Date birthDate;
@@ -19,6 +20,7 @@ public class UserVM {
     public String creditCardNumber;
 
     public UserVM(User user) {
+        id = user.getId();
         name = user.getName();
         lastName = user.getLastName();
         birthDate = user.getBirthDate();

@@ -8,6 +8,7 @@ import pw.pcshop.dataModels.GraphicsCard;
 
 @NoArgsConstructor
 public class GraphicsCardVM {
+    public Long id;
     public String manufacturer;
     public String series;
     public int vRAM;
@@ -17,6 +18,7 @@ public class GraphicsCardVM {
     public int height;
 
     public GraphicsCardVM(GraphicsCard graphicsCard) {
+        id = graphicsCard.getId();
         manufacturer = graphicsCard.getManufacturer();
         series = graphicsCard.getSeries();
         vRAM = graphicsCard.getVRAM();
