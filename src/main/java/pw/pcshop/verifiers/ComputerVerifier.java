@@ -1,9 +1,9 @@
 package pw.pcshop.verifiers;
 
-import pw.pcshop.addModels.AddComputer;
+import pw.pcshop.addModels.ComputerVM;
 
 public class ComputerVerifier {
-    public static VerificationResult verifyComputer(AddComputer computer) {
+    public static VerificationResult verifyComputer(ComputerVM computer) {
         try {
             VerifierUtils.throwIfNotCorrect(verifyOS(computer.operatingSystem));
             VerifierUtils.throwIfNotCorrect(verifyRAM(computer.RAM));

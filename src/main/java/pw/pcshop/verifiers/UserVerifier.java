@@ -1,9 +1,9 @@
 package pw.pcshop.verifiers;
 
-import pw.pcshop.addModels.AddUser;
+import pw.pcshop.addModels.UserVM;
 
 public class UserVerifier {
-    public static VerificationResult verifyUser(AddUser user) {
+    public static VerificationResult verifyUser(UserVM user) {
         try {
             VerifierUtils.throwIfNotCorrect(verifyName(user.name));
             VerifierUtils.throwIfNotCorrect(verifyLastName(user.lastName));

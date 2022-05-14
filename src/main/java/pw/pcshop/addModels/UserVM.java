@@ -2,7 +2,7 @@ package pw.pcshop.addModels;
 
 import java.util.Date;
 
-public class AddUser {
+public class UserVM {
     public String name;
     public String lastName;
     public Date birthDate;

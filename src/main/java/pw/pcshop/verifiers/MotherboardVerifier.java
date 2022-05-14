@@ -1,9 +1,9 @@
 package pw.pcshop.verifiers;
 
-import pw.pcshop.addModels.AddMotherboard;
+import pw.pcshop.addModels.MotherboardVM;
 
 public class MotherboardVerifier {
-    public static VerificationResult verifyMotherboard(AddMotherboard motherboard) {
+    public static VerificationResult verifyMotherboard(MotherboardVM motherboard) {
         try {
             VerifierUtils.throwIfNotCorrect(verifyManufacturer(motherboard.manufacturer));
             VerifierUtils.throwIfNotCorrect(verifySize(motherboard.size));

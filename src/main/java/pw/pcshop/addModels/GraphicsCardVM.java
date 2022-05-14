@@ -1,6 +1,6 @@
 package pw.pcshop.addModels;
 
-public class AddGraphicsCard {
+public class GraphicsCardVM {
     public String manufacturer;
     public String series;
     public int vRAM;

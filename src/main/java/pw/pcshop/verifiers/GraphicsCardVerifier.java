@@ -1,9 +1,9 @@
 package pw.pcshop.verifiers;
 
-import pw.pcshop.addModels.AddGraphicsCard;
+import pw.pcshop.addModels.GraphicsCardVM;
 
 public class GraphicsCardVerifier {
-    public static VerificationResult verifyGraphicsCard(AddGraphicsCard graphicsCard) {
+    public static VerificationResult verifyGraphicsCard(GraphicsCardVM graphicsCard) {
         try {
             VerifierUtils.throwIfNotCorrect(verifyManufacturer(graphicsCard.manufacturer));
             VerifierUtils.throwIfNotCorrect(verifyVRAM(graphicsCard.vRAM));

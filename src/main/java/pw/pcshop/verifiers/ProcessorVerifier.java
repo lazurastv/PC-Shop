@@ -1,9 +1,9 @@
 package pw.pcshop.verifiers;
 
-import pw.pcshop.addModels.AddProcessor;
+import pw.pcshop.addModels.ProcessorVM;
 
 public class ProcessorVerifier {
-    public static VerificationResult verifyProcessor(AddProcessor processor) {
+    public static VerificationResult verifyProcessor(ProcessorVM processor) {
         try {
             VerifierUtils.throwIfNotCorrect(verifyManufacter(processor.manufacturer));
             VerifierUtils.throwIfNotCorrect(verifyThreadCount(processor.threadCount));
