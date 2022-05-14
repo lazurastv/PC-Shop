@@ -85,4 +85,10 @@ public abstract class VerifierUtils {
         }
         return new VerificationResult();
     }
+
+    public static void throwIfNotCorrect(VerificationResult result) {
+        if (!result.correct) {
+            throw new VerificationException(result);
+        }
+    }
 }
