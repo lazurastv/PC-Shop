@@ -8,7 +8,6 @@ import pw.pcshop.dataModels.Computer;
 
 @NoArgsConstructor
 public class ComputerVM {
-    public Long userId;
     public Long processorId;
     public Long graphicsCardId;
     public Long motherboardId;
@@ -23,7 +22,6 @@ public class ComputerVM {
     public double price;
 
     public ComputerVM(Computer computer) {
-        userId = computer.getUser().getId();
         processorId = computer.getProcessor().getId();
         graphicsCardId = computer.getGraphicsCard().getId();
         motherboardId = computer.getMotherboard().getId();

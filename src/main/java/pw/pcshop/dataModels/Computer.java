@@ -1,11 +1,15 @@
 package pw.pcshop.dataModels;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -19,9 +23,9 @@ public class Computer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @ManyToMany
+    @JoinTable(name = "owner", joinColumns = @JoinColumn(name = "computer_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> users;
 
     @ManyToOne
     @JoinColumn(name = "processor_id")
@@ -61,4 +65,8 @@ public class Computer {
 
     @Column
     private double price;
+
+    public void addUser(User user) {
+        users.add(user);
+    }
 }

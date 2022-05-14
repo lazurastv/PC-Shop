@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import pw.pcshop.dataModels.Computer;
 import pw.pcshop.dataModels.GraphicsCard;
+import pw.pcshop.dataModels.User;
 import pw.pcshop.repositories.ComputerRepository;
 import pw.pcshop.repositories.GraphicsCardRepository;
 import pw.pcshop.repositories.MotherboardRepository;
@@ -14,6 +15,7 @@ import pw.pcshop.repositories.ProcessorRepository;
 import pw.pcshop.repositories.UserRepository;
 import pw.pcshop.verifiers.ComputerVerifier;
 import pw.pcshop.verifiers.VerifierUtils;
+import pw.pcshop.viewModels.ComputerAddUser;
 import pw.pcshop.viewModels.ComputerVM;
 
 @Service
@@ -43,9 +45,15 @@ public class ComputerService {
         computer.setPrice(computerVM.price);
         computer.setProcessor(processorRepository.getById(computerVM.processorId));
         computer.setRAM(computerVM.RAM);
-        computer.setUser(userRepository.getById(computerVM.userId));
         computer.setWattage(computerVM.wattage);
         computer.setWidth(computerVM.width);
+        computerRepository.save(computer);
+    }
+
+    public void addUser(ComputerAddUser model) {
+        Computer computer = computerRepository.getById(model.computerId);
+        User user = userRepository.getById(model.userId);
+        computer.addUser(user);
         computerRepository.save(computer);
     }
 }
