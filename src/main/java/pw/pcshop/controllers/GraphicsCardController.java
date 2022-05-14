@@ -26,12 +26,7 @@ public class GraphicsCardController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResult<Void> add(GraphicsCardVM graphicsCardVM) {
-        try {
-            graphicsCardService.add(graphicsCardVM);
-            return new ApiResult<Void>().OK();
-        } catch (RuntimeException e) {
-            return new ApiResult<Void>().Error(e.getMessage());
-        }
+    public void add(GraphicsCardVM graphicsCardVM) {
+        graphicsCardService.add(graphicsCardVM);
     }
 }

@@ -26,12 +26,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResult<Void> add(UserVM userVM) {
-        try {
-            userService.add(userVM);
-            return new ApiResult<Void>().OK();
-        } catch (RuntimeException e) {
-            return new ApiResult<Void>().Error(e.getMessage());
-        }
+    public void add(UserVM userVM) {
+        userService.add(userVM);
     }
 }

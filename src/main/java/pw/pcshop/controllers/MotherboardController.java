@@ -26,12 +26,7 @@ public class MotherboardController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResult<Void> add(MotherboardVM motherboardVM) {
-        try {
-            motherboardService.add(motherboardVM);
-            return new ApiResult<Void>().OK();
-        } catch (RuntimeException e) {
-            return new ApiResult<Void>().Error(e.getMessage());
-        }
+    public void add(MotherboardVM motherboardVM) {
+        motherboardService.add(motherboardVM);
     }
 }

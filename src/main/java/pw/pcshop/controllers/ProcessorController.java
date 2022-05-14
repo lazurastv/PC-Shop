@@ -26,12 +26,7 @@ public class ProcessorController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResult<Void> add(ProcessorVM processorVM) {
-        try {
-            processorService.add(processorVM);
-            return new ApiResult<Void>().OK();
-        } catch (RuntimeException e) {
-            return new ApiResult<Void>().Error(e.getMessage());
-        }
+    public void add(ProcessorVM processorVM) {
+        processorService.add(processorVM);
     }
 }

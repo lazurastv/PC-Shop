@@ -26,12 +26,7 @@ public class ComputerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResult<Void> add(ComputerVM computerVM) {
-        try {
-            computerService.add(computerVM);
-            return new ApiResult<Void>().OK();
-        } catch (RuntimeException e) {
-            return new ApiResult<Void>().Error(e.getMessage());
-        }
+    public void add(ComputerVM computerVM) {
+        computerService.add(computerVM);
     }
 }
