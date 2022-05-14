@@ -10,10 +10,12 @@ function App() {
   const pages = ["Procesory", "Płyty główne", "Komputery", "Użytkownicy", "Karty graficzne"];
   const [visiblePage, setVisiblePage] = useState(0);
   return (
-    <div className="App">
-      {
-        pages.map(page => <button key={page} onClick={() => setVisiblePage(pages.indexOf(page))}>{page}</button>)
-      }
+    <div className="app">
+      <div className="buttons">
+        {
+          pages.map(page => <button key={page} onClick={() => setVisiblePage(pages.indexOf(page))}>{page}</button>)
+        }
+      </div>
       {
         visiblePage === 0 ?
           <ProcessorList /> :

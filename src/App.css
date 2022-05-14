@@ -1,14 +1,20 @@
-.App {
-  text-align: center;
+.app {
+  height: 100vw;
+  padding: 20px;
+  background-color: rgb(175, 175, 175);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.buttons {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+button {
+  height: 30px;
+  background-color: rgb(255, 85, 85);
+  border: 1px solid;
+  box-shadow: 1px 1px;
+  cursor: pointer;
 }

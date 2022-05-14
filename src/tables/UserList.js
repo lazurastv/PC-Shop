@@ -7,7 +7,7 @@ export function UserList() {
         fetch("http://localhost:8080/api/user").then(response => response.json()).then(body => setUsers(body));
     }
     return (
-        <div className="App">
+        <main>
             {
                 users ?
                     <table>
@@ -27,6 +27,6 @@ export function UserList() {
                     :
                     <p>Brak użytkowników w bazie.</p>
             }
-        </div >
+        </main >
     );
 }

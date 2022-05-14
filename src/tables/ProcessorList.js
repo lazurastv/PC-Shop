@@ -7,7 +7,7 @@ export function ProcessorList() {
         fetch("http://localhost:8080/api/processor").then(response => response.json()).then(body => setProcessors(body));
     }
     return (
-        <div className="App">
+        <main>
             {
                 processors ?
                     <table>
@@ -27,6 +27,6 @@ export function ProcessorList() {
                     :
                     <p>Brak procesorów w bazie.</p>
             }
-        </div >
+        </main >
     );
 }

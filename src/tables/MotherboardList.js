@@ -7,7 +7,7 @@ export function MotherboardList() {
         fetch("http://localhost:8080/api/motherboard").then(response => response.json()).then(body => setMotherboards(body));
     }
     return (
-        <div className="App">
+        <main>
             {
                 motherboards ?
                     <table>
@@ -27,6 +27,6 @@ export function MotherboardList() {
                     :
                     <p>Brak płyt głównych w bazie.</p>
             }
-        </div >
+        </main>
     );
 }

@@ -7,7 +7,7 @@ export function GPUList() {
         fetch("http://localhost:8080/api/graphicsCard").then(response => response.json()).then(body => setGraphicsCards(body));
     }
     return (
-        <div className="App">
+        <main>
             {
                 graphicsCards ?
                     <table>
@@ -27,6 +27,6 @@ export function GPUList() {
                     :
                     <p>Brak kart graficznych w bazie.</p>
             }
-        </div >
+        </main>
     );
 }

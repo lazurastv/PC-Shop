@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./List.css"
 
 export function ComputerList() {
     const [computers, setcomputers] = useState();
@@ -7,7 +8,7 @@ export function ComputerList() {
         fetch("http://localhost:8080/api/computer").then(response => response.json()).then(body => setcomputers(body));
     }
     return (
-        <div className="App">
+        <main>
             {
                 computers ?
                     <table>
@@ -27,6 +28,6 @@ export function ComputerList() {
                     :
                     <p>Brak komputerów w bazie.</p>
             }
-        </div >
+        </main>
     );
 }
