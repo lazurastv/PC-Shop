@@ -73,6 +73,10 @@ public abstract class VerifierUtils {
         return new VerificationResult();
     }
 
+    public static VerificationResult verifyIsPositive(String item, double value) {
+        return verifyIsPositive(item, (int) (value + 1));
+    }
+
     public static VerificationResult verifyInList(String item, String[] list, String value) {
         HashSet<String> validItems = new HashSet<>(
                 Arrays.asList(list));

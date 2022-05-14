@@ -2,23 +2,14 @@ package pw.pcshop.verifiers;
 
 public class ProcessorVerifier {
     private static VerificationResult verifyManufacter(String value) {
-        if (value != "Intel" && value != "AMD") {
-            return new VerificationResult("Unknown manufacturer.");
-        }
-        return new VerificationResult();
+        return VerifierUtils.verifyInList("Manufacturer", new String[] { "Intel", "AMD" }, value);
     }
 
     private static VerificationResult verifyThreadCount(int value) {
-        if (value <= 0) {
-            return new VerificationResult("Thread count must be positive.");
-        }
-        return new VerificationResult();
+        return VerifierUtils.verifyIsPositive("Thread count", value);
     }
 
     private static VerificationResult verifyFrequency(double value) {
-        if (value <= 0) {
-            return new VerificationResult("Thread count must be positive.");
-        }
-        return new VerificationResult();
+        return VerifierUtils.verifyIsPositive("Frequency", value);
     }
 }

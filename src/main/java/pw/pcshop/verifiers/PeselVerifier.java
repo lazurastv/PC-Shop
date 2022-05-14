@@ -4,15 +4,27 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class PeselVerifier {
+    private static int getCentury(String PESEL) {
+        int month = getMonth(PESEL);
+        switch (month / 20) {
+            case 0:
+                return 19;
+            case 1:
+                return 20;
+            case 2:
+                return 21;
+            case 3:
+                return 22;
+            case 4:
+                return 18;
+            default:
+                throw new ArrayIndexOutOfBoundsException();
+        }
+    }
+
     private static int getYear(String PESEL) {
         String year = PESEL.substring(0, 2);
-        int month = getMonth(PESEL);
-        if (month <= 12) {
-            year = "19" + year;
-        } else {
-            year = "20" + year;
-        }
-        return Integer.parseInt(year);
+        return 100 * getCentury(PESEL) + Integer.parseInt(year);
     }
 
     private static int getMonth(String PESEL) {
@@ -55,12 +67,11 @@ public class PeselVerifier {
             return isNumeric;
         }
         try {
-            Calendar date = Calendar.getInstance();
-            date.set(getYear(value), getTrueMonth(value), getDay(value));
-            if (!date.getTime().equals(birthDate)) {
+            Date date = getDate(value);
+            if (!date.equals(birthDate)) {
                 return new VerificationResult("PESEL and birth date do not match.");
             }
-            if (!VerifierUtils.isLivingBirthDate(date.getTime())) {
+            if (!VerifierUtils.isLivingBirthDate(date)) {
                 return new VerificationResult("Impossible year.");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
