@@ -1,6 +1,24 @@
 package pw.pcshop.verifiers;
 
+import pw.pcshop.addModels.AddComputer;
+
 public class ComputerVerifier {
+    public static VerificationResult verifyComputer(AddComputer computer) {
+        try {
+            VerifierUtils.throwIfNotCorrect(verifyOS(computer.operatingSystem));
+            VerifierUtils.throwIfNotCorrect(verifyRAM(computer.RAM));
+            VerifierUtils.throwIfNotCorrect(verifyLength(computer.length));
+            VerifierUtils.throwIfNotCorrect(verifyWidth(computer.width));
+            VerifierUtils.throwIfNotCorrect(verifyHeight(computer.height));
+            VerifierUtils.throwIfNotCorrect(verifyMemory(computer.memory));
+            VerifierUtils.throwIfNotCorrect(verifyWattage(computer.wattage));
+            VerifierUtils.throwIfNotCorrect(verifyPrice(computer.price));
+        } catch (VerificationException v) {
+            return new VerificationResult(v.getMessage());
+        }
+        return new VerificationResult();
+    }
+
     private static VerificationResult verifyOS(String value) {
         return VerifierUtils.verifyInList("Operating system",
                 new String[] { "Windows 7", "Windows 8.1", "Windows 10", "Ubuntu" }, value);
