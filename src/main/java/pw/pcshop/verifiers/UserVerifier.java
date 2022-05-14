@@ -33,7 +33,10 @@ public class UserVerifier {
         if (!VerifierUtils.isAlphaNumeric(values[0])) {
             return new VerificationResult("Impossible email address.");
         }
-        values = values[1].split(".");
+        values = values[1].split("[.]");
+        if (values.length != 2) {
+            return new VerificationResult("Wrong number of . symbols.");
+        }
         if (!VerifierUtils.isAlphaNumeric(values[0])) {
             return new VerificationResult("Unlikely email provider.");
         }

@@ -41,7 +41,7 @@ public class PeselVerifier {
 
     private static Date getDate(String PESEL) {
         Calendar date = Calendar.getInstance();
-        date.set(getYear(PESEL), getTrueMonth(PESEL), getDay(PESEL));
+        date.set(getYear(PESEL), getTrueMonth(PESEL) - 1, getDay(PESEL));
         return date.getTime();
     }
 
@@ -52,10 +52,23 @@ public class PeselVerifier {
     private static int calculateControlNumber(String PESEL) {
         int[] coeffs = new int[] { 1, 3, 7, 9 };
         int sum = 0;
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < 10; i++) {
             sum += (PESEL.charAt(i) - '0') * coeffs[i % 4];
         }
         return 10 - sum % 10;
+    }
+
+    private static boolean datesMatch(Date date1, Date date2) {
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal1.setTime(date1);
+        cal2.setTime(date2);
+        for (int field : new int[] { Calendar.YEAR, Calendar.MONTH, Calendar.DATE }) {
+            if (cal1.get(field) != cal2.get(field)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static VerificationResult verifyPESEL(String value, Date birthDate) {
@@ -67,11 +80,11 @@ public class PeselVerifier {
             return isNumeric;
         }
         try {
-            Date date = getDate(value);
-            if (!date.equals(birthDate)) {
+            Date PESELdate = getDate(value);
+            if (!datesMatch(PESELdate, birthDate)) {
                 return new VerificationResult("PESEL and birth date do not match.");
             }
-            if (!VerifierUtils.isLivingBirthDate(date)) {
+            if (!VerifierUtils.isLivingBirthDate(PESELdate)) {
                 return new VerificationResult("Impossible year.");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
