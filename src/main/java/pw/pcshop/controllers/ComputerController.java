@@ -2,9 +2,11 @@ package pw.pcshop.controllers;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -18,15 +20,12 @@ public class ComputerController {
     private final ComputerService computerService;
 
     @GetMapping
-    public ApiResult<List<ComputerVM>> getAll() {
-        try {
-            return new ApiResult<List<ComputerVM>>().OK(computerService.getAll());
-        } catch (RuntimeException e) {
-            return new ApiResult<List<ComputerVM>>().Error(e.getMessage());
-        }
+    public List<ComputerVM> getAll() {
+        return computerService.getAll();
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ApiResult<Void> add(ComputerVM computerVM) {
         try {
             computerService.add(computerVM);

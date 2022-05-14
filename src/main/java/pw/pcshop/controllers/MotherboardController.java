@@ -2,9 +2,11 @@ package pw.pcshop.controllers;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -18,15 +20,12 @@ public class MotherboardController {
     private final MotherboardService motherboardService;
 
     @GetMapping
-    public ApiResult<List<MotherboardVM>> getAll() {
-        try {
-            return new ApiResult<List<MotherboardVM>>().OK(motherboardService.getAll());
-        } catch (RuntimeException e) {
-            return new ApiResult<List<MotherboardVM>>().Error(e.getMessage());
-        }
+    public List<MotherboardVM> getAll() {
+        return motherboardService.getAll();
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ApiResult<Void> add(MotherboardVM motherboardVM) {
         try {
             motherboardService.add(motherboardVM);

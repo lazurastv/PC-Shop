@@ -2,9 +2,11 @@ package pw.pcshop.controllers;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -18,15 +20,12 @@ public class GraphicsCardController {
     private final GraphicsCardService graphicsCardService;
 
     @GetMapping
-    public ApiResult<List<GraphicsCardVM>> getAll() {
-        try {
-            return new ApiResult<List<GraphicsCardVM>>().OK(graphicsCardService.getAll());
-        } catch (RuntimeException e) {
-            return new ApiResult<List<GraphicsCardVM>>().Error(e.getMessage());
-        }
+    public List<GraphicsCardVM> getAll() {
+        return graphicsCardService.getAll();
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ApiResult<Void> add(GraphicsCardVM graphicsCardVM) {
         try {
             graphicsCardService.add(graphicsCardVM);
