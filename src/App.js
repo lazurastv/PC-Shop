@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './App.css';
+import { MotherboardForm } from './forms/MotherboardForm';
 import { ProcessorForm } from './forms/ProcessorForm';
 import { ComputerList } from './tables/ComputerList';
 import { GraphicsCardList } from './tables/GraphicsCardList';
@@ -24,8 +25,7 @@ function App() {
       </div>
       {
         visiblePage === 0 ? (!addItem ? <ProcessorList /> : <ProcessorForm />) :
-          visiblePage === 1 ?
-            <MotherboardList /> :
+          visiblePage === 1 ? (!addItem ? <MotherboardList /> : <MotherboardForm />) :
             visiblePage === 2 ?
               <ComputerList /> :
               visiblePage === 3 ?

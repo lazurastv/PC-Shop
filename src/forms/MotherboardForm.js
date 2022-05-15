@@ -1,23 +1,24 @@
 import { useState } from "react";
 
-const tableHeaders = ["Producent", "Seria", "Liczba rdzeni", "Taktowanie"];
+const tableHeaders = ["Producent", "Seria", "Rozmiar", "Gniazdo procesora", "Maksymalna pamięć RAM"];
 const headerMapping = {
-    "Producent": "manufacturer",
+    "Producent": 'manufacturer',
     "Seria": 'series',
-    "Liczba rdzeni": 'threadCount',
-    "Taktowanie": 'frequency'
+    "Rozmiar": 'size',
+    "Gniazdo procesora": 'socket',
+    "Maksymalna pamięć RAM": 'maxRAM'
 };
 
-function emptyProcessor() {
-    const processor = {};
+function emptyMotherboard() {
+    const motherboard = {};
     for (const header in headerMapping) {
-        processor[headerMapping[header]] = '';
+        motherboard[headerMapping[header]] = '';
     }
-    return processor;
+    return motherboard;
 }
 
-export function ProcessorForm() {
-    const [processor, setProcessor] = useState(emptyProcessor());
+export function MotherboardForm() {
+    const [motherboard, setMotherboard] = useState(emptyMotherboard());
     const [responseMessage, setResponseMessage] = useState();
 
     return (
@@ -29,10 +30,10 @@ export function ProcessorForm() {
                             return (
                                 <div key={header} style={{ display: "flex" }}>
                                     <label htmlFor={header} style={{ display: "inline-block", width: "100px" }}>{header}</label>
-                                    <input id={header} value={processor[headerMapping[header]]} onChange={(value) => {
-                                        const newProcessor = JSON.parse(JSON.stringify(processor));
-                                        newProcessor[headerMapping[header]] = value.target.value;
-                                        setProcessor(newProcessor);
+                                    <input id={header} value={motherboard[headerMapping[header]]} onChange={(value) => {
+                                        const newMotherboard = JSON.parse(JSON.stringify(motherboard));
+                                        newMotherboard[headerMapping[header]] = value.target.value;
+                                        setMotherboard(newMotherboard);
                                         setResponseMessage();
                                     }}></input>
                                 </div>
@@ -45,15 +46,15 @@ export function ProcessorForm() {
                 }
                 <button onClick={() => {
                     for (const [key, value] of Object.entries(headerMapping)) {
-                        if (!processor[value]) {
+                        if (!motherboard[value]) {
                             setResponseMessage("Uzupełnij: " + key);
                             return;
                         }
                     }
-                    fetch("http://localhost:8080/api/processor", { method: "POST", body: JSON.stringify(processor), headers: { "Content-Type": "application/json" } })
+                    fetch("http://localhost:8080/api/motherboard", { method: "POST", body: JSON.stringify(motherboard), headers: { "Content-Type": "application/json" } })
                         .then(x => {
                             if (x.status === 201) {
-                                setProcessor(emptyProcessor());
+                                setMotherboard(emptyMotherboard());
                                 setResponseMessage("Dodano obiekt.");
                                 return;
                             } else {
