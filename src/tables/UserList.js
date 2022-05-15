@@ -51,7 +51,7 @@ export function UserList() {
                 }
             </div>
             {
-                users ?
+                filteredUsers ?
                     <table>
                         <thead>
                             <tr>
