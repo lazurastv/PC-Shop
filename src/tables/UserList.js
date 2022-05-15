@@ -27,7 +27,11 @@ function generateXML(users) {
     for (const user of users) {
         xml += "<user>\n";
         for (const [key, value] of Object.entries(user)) {
-            xml += `\t<${key}>${value}</${key}>\n`;
+            if (key === "birthDate") {
+                xml += `\t<${key}>${value.slice(0, 10)}</${key}>\n`;
+            } else {
+                xml += `\t<${key}>${value}</${key}>\n`;
+            }
         }
         xml += "</user>\n";
     }
