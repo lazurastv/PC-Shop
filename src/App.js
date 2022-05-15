@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import { ComputerForm } from './forms/ComputerForm';
+import { GraphicsCardForm } from './forms/GraphicsCardForm';
 import { MotherboardForm } from './forms/MotherboardForm';
 import { ProcessorForm } from './forms/ProcessorForm';
 import { ComputerList } from './tables/ComputerList';
@@ -28,9 +29,8 @@ function App() {
         visiblePage === 0 ? (!addItem ? <ProcessorList /> : <ProcessorForm />) :
           visiblePage === 1 ? (!addItem ? <MotherboardList /> : <MotherboardForm />) :
             visiblePage === 2 ? (!addItem ? <ComputerList /> : <ComputerForm />) :
-              visiblePage === 3 ?
-                <UserList /> :
-                <GraphicsCardList />
+              visiblePage === 3 ? <UserList /> :
+                !addItem ? <GraphicsCardList /> : <GraphicsCardForm />
       }
     </div>
   );
