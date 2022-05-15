@@ -55,7 +55,7 @@ public class PeselVerifier {
         for (int i = 0; i < 10; i++) {
             sum += (PESEL.charAt(i) - '0') * coeffs[i % 4];
         }
-        return 10 - sum % 10;
+        return (10 - sum % 10) % 10;
     }
 
     private static boolean datesMatch(Date date1, Date date2) {
