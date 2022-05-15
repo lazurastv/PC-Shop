@@ -12,9 +12,9 @@ import { MotherboardList } from './tables/MotherboardList';
 import { ProcessorList } from './tables/ProcessorList';
 import { UserList } from './tables/UserList';
 
+const pages = ["Procesory", "Płyty główne", "Komputery", "Użytkownicy", "Karty graficzne"];
+
 function App() {
-  const pages = ["Procesory", "Płyty główne", "Komputery", "Użytkownicy", "Karty graficzne"];
-  const options = ["Wyświetl", "Dodaj", "Dodaj użytkownika"];
   const [visiblePage, setVisiblePage] = useState(0);
   const [visibleOption, setVisibleOption] = useState(0);
   return (
