@@ -1,27 +1,29 @@
 import { useState } from "react";
 import "./List.css"
 
+const tableHeaders = ["Id", "Procesor", "Karta graficzna", "Płyta główna", "Użytkownicy", "Model", "System operacyjny", "Pamięć RAM", "Długość", "Szerokość", "Wysokość", "Pamięć", "Moc", "Cena"];
+const headerMapping = {
+    "Id": "id",
+    "Procesor": "processorId",
+    "Karta graficzna": "graphicsCardId",
+    "Płyta główna": "motherboardId",
+    "Użytkownicy": "userIds",
+    "Model": "model",
+    "System operacyjny": "operatingSystem",
+    "Pamięć RAM": "RAM",
+    "Długość": "length",
+    "Szerokość": "width",
+    "Wysokość": "height",
+    "Pamięć": "memory",
+    "Moc": "wattage",
+    "Cena": "price"
+};
+
 async function getIncome(id) {
     return await fetch("http://localhost:8080/api/computer/" + id);
 }
 
 function filterComputers(computers, filters) {
-    const headerMapping = {
-        "Id": "id",
-        "Procesor": "processorId",
-        "Karta graficzna": "graphicsCardId",
-        "Płyta główna": "motherboardId",
-        "Użytkownicy": "userIds",
-        "Model": "model",
-        "System operacyjny": "operatingSystem",
-        "Pamięć RAM": "maxRAM",
-        "Długość": "length",
-        "Szerokość": "width",
-        "Wysokość": "height",
-        "Pamięć": "memory",
-        "Moc": "wattage",
-        "Cena": "price"
-    };
     let newComputers = computers.map(x => x);
     for (const [key, value] of Object.entries(filters)) {
         newComputers = newComputers.filter(x => JSON.stringify(x[headerMapping[key]]).includes(value));
@@ -30,8 +32,6 @@ function filterComputers(computers, filters) {
 }
 
 export function ComputerList() {
-    const tableHeaders = ["Id", "Procesor", "Karta graficzna", "Płyta główna", "Użytkownicy", "Model", "System operacyjny", "Pamięć RAM", "Długość", "Szerokość", "Wysokość", "Pamięć", "Moc", "Cena"];
-
     const [computers, setComputers] = useState();
     const [filteredComputers, setFilteredComputers] = useState();
     const [filters, setFilters] = useState({});
@@ -63,7 +63,7 @@ export function ComputerList() {
                 }
             </div>
             {
-                filteredComputers ?
+                filteredComputers?.length > 0 ?
                     <table>
                         <thead>
                             <tr>
@@ -95,7 +95,7 @@ export function ComputerList() {
                         </tbody>
                     </table >
                     :
-                    <p>Brak komputerów w bazie.</p>
+                    <p>Brak wyników.</p>
             }
         </main >
     );

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import { ComputerList } from './tables/ComputerList';
-import { GPUList } from './tables/GPUList';
+import { GraphicsCardList } from './tables/GraphicsCardList';
 import { MotherboardList } from './tables/MotherboardList';
 import { ProcessorList } from './tables/ProcessorList';
 import { UserList } from './tables/UserList';
@@ -25,7 +25,7 @@ function App() {
               <ComputerList /> :
               visiblePage === 3 ?
                 <UserList /> :
-                <GPUList />
+                <GraphicsCardList />
       }
     </div>
   );

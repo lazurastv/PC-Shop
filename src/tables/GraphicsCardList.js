@@ -1,31 +1,34 @@
 import { useState } from "react";
 
-const tableHeaders = ["Id", "Producent", "Seria", "Liczba rdzeni", "Taktowanie"];
+const tableHeaders = ["Id", "Producent", "Seria", "Pamięć wideo", "Rodzaj pamięci", "Długość", "Szerokość", "Wysokość"];
 const headerMapping = {
-    "Id": "id",
-    "Producent": "manufacturer",
+    "Id": 'id',
+    "Producent": 'manufacturer',
     "Seria": 'series',
-    "Liczba rdzeni": 'threadCount',
-    "Taktowanie": 'frequency'
+    "Pamięć wideo": 'vRAM',
+    "Rodzaj pamięci": 'memoryType',
+    "Długość": 'length',
+    "Szerokość": 'width',
+    "Wysokość": 'height'
 };
 
-function filterProcessors(processors, filters) {
-    let newProcessors = processors.map(x => x);
+function filterGraphicsCards(graphicsCards, filters) {
+    let newGraphicsCards = graphicsCards.map(x => x);
     for (const [key, value] of Object.entries(filters)) {
-        newProcessors = newProcessors.filter(x => JSON.stringify(x[headerMapping[key]]).includes(value));
+        newGraphicsCards = newGraphicsCards.filter(x => JSON.stringify(x[headerMapping[key]]).includes(value));
     }
-    return newProcessors;
+    return newGraphicsCards;
 }
 
-export function ProcessorList() {
-    const [processors, setProcessors] = useState();
-    const [filteredProcessors, setFilteredProcessors] = useState();
+export function GraphicsCardList() {
+    const [graphicsCards, setGraphicsCards] = useState();
+    const [filteredGraphicsCards, setFilteredGraphicsCards] = useState();
     const [filters, setFilters] = useState({});
 
-    if (!processors) {
-        fetch("http://localhost:8080/api/processor").then(response => response.json()).then(body => {
-            setProcessors(body);
-            setFilteredProcessors(body);
+    if (!graphicsCards) {
+        fetch("http://localhost:8080/api/graphicsCard").then(response => response.json()).then(body => {
+            setGraphicsCards(body);
+            setFilteredGraphicsCards(body);
         });
     }
 
@@ -40,14 +43,14 @@ export function ProcessorList() {
                                 const newFilters = { ...filters };
                                 newFilters[header] = value.target.value;
                                 setFilters(newFilters);
-                                setFilteredProcessors(filterProcessors(processors, newFilters));
+                                setFilteredGraphicsCards(filterGraphicsCards(graphicsCards, newFilters));
                             }}></input>
                         </div>
                     )
                 }
             </div>
             {
-                filteredProcessors?.length > 0 ?
+                filteredGraphicsCards?.length > 0 ?
                     <table>
                         <thead>
                             <tr>
@@ -58,10 +61,10 @@ export function ProcessorList() {
                         </thead>
                         <tbody>
                             {
-                                filteredProcessors.map(processor =>
-                                    <tr key={processor.id}>
-                                        {Object.keys(processor).map(header =>
-                                            <td key={header}>{processor[header]}</td>
+                                filteredGraphicsCards.map(graphicsCard =>
+                                    <tr key={graphicsCard.id}>
+                                        {Object.keys(graphicsCard).map(header =>
+                                            <td key={header}>{graphicsCard[header]}</td>
                                         )}
                                     </tr>)
                             }

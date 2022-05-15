@@ -1,17 +1,19 @@
 import { useState } from "react";
 
+const tableHeaders = ["Id", "Imię", "Nazwisko", "Data urodzenia", "PESEL", "Adres email", "Numer telefonu", "Adres", "Numer karty kredytowej"];
+const headerMapping = {
+    "Id": 'id',
+    "Imię": 'name',
+    "Nazwisko": 'lastName',
+    "Data urodzenia": 'birthDate',
+    "PESEL": 'PESEL',
+    "Adres email": 'email',
+    "Numer telefonu": 'phoneNumber',
+    "Adres": 'address',
+    "Numer karty kredytowej": 'creditCardNumber'
+};
+
 function filterUsers(users, filters) {
-    const headerMapping = {
-        "Id": 'id',
-        "Imię": 'name',
-        "Nazwisko": 'lastName',
-        "Data urodzenia": 'birthDate',
-        "PESEL": 'PESEL',
-        "Adres email": 'email',
-        "Numer telefonu": 'phoneNumber',
-        "Adres": 'address',
-        "Numer karty kredytowej": 'creditCardNumber'
-    };
     let newUsers = users.map(x => x);
     for (const [key, value] of Object.entries(filters)) {
         newUsers = newUsers.filter(x => JSON.stringify(x[headerMapping[key]]).includes(value));
@@ -20,8 +22,6 @@ function filterUsers(users, filters) {
 }
 
 export function UserList() {
-    const tableHeaders = ["Id", "Imię", "Nazwisko", "Data urodzenia", "PESEL", "Adres email", "Numer telefonu", "Adres", "Numer karty kredytowej"];
-
     const [users, setUsers] = useState();
     const [filteredUsers, setFilteredUsers] = useState();
     const [filters, setFilters] = useState({});
@@ -51,7 +51,7 @@ export function UserList() {
                 }
             </div>
             {
-                filteredUsers ?
+                filteredUsers?.length > 0 ?
                     <table>
                         <thead>
                             <tr>
@@ -72,7 +72,7 @@ export function UserList() {
                         </tbody>
                     </table >
                     :
-                    <p>Brak użytkowników w bazie.</p>
+                    <p>Brak wyników.</p>
             }
         </main >
     );
