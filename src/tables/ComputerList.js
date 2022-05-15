@@ -77,7 +77,7 @@ async function generateXML(ids) {
 async function download(computers) {
     const element = document.createElement('a');
     const xml = await generateXML(computers.map(x => x.id));
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(xml));
+    element.setAttribute('href', 'data:text/xml;charset=utf-8,' + encodeURIComponent(xml));
     element.setAttribute('download', "komputery_" + Date.now() + ".xml");
 
     element.style.display = 'none';

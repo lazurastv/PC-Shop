@@ -41,7 +41,7 @@ function generateXML(users) {
 
 function download(users) {
     var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(generateXML(users)));
+    element.setAttribute('href', 'data:text/xml;charset=utf-8,' + encodeURIComponent(generateXML(users)));
     element.setAttribute('download', "użytkownicy_" + Date.now() + ".xml");
 
     element.style.display = 'none';
@@ -50,6 +50,14 @@ function download(users) {
     element.click();
 
     document.body.removeChild(element);
+}
+
+function upload(file) {
+    const fileData = file.target.files[0];
+    const reader = new FileReader();
+    let content = "";
+    reader.addEventListener('load', event => { content = event.target.result; console.log(content); });
+    reader.readAsText(fileData);
 }
 
 export function UserList() {
@@ -66,7 +74,11 @@ export function UserList() {
     }
     return (
         <main style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "20px" }}>
-            <button onClick={() => download(filteredUsers)}>Pobierz raport</button>
+            <div style={{ display: "flex", gap: "10px" }}>
+                <button onClick={() => download(filteredUsers)}>Pobierz raport</button>
+                <input id="selectedFile" style={{ display: 'none' }} type="file" accept="text/xml" onChange={(value) => upload(value)}></input>
+                <button onClick={() => document.getElementById('selectedFile').click()}>Wczytaj z pliku</button>
+            </div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
                 {
                     tableHeaders.map(header =>
