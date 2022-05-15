@@ -21,6 +21,33 @@ function filterUsers(users, filters) {
     return newUsers;
 }
 
+function generateXML(users) {
+    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+    xml += "<users>\n";
+    for (const user of users) {
+        xml += "<user>\n";
+        for (const [key, value] of Object.entries(user)) {
+            xml += `\t<${key}>${value}</${key}>\n`;
+        }
+        xml += "</user>\n";
+    }
+    xml += "</users>\n";
+    return xml;
+}
+
+function download(users) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(generateXML(users)));
+    element.setAttribute('download', "użytkownicy_" + Date.now() + ".xml");
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
+
 export function UserList() {
     const [users, setUsers] = useState();
     const [filteredUsers, setFilteredUsers] = useState();
@@ -35,6 +62,7 @@ export function UserList() {
     }
     return (
         <main style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "20px" }}>
+            <button onClick={() => download(filteredUsers)}>Pobierz raport</button>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
                 {
                     tableHeaders.map(header =>
