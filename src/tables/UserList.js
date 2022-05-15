@@ -66,7 +66,7 @@ async function addFromXML(xml, setErrors) {
         const response = await fetch("http://localhost:8080/api/user", { method: "POST", body: JSON.stringify(user), headers: { "Content-Type": "application/json" } })
         if (response.status !== 201) {
             const responseJson = await response.json();
-            errors[parseInt(index) + 1] = responseJson.message;
+            errors[parseInt(index) + 1] = responseJson.message ?? "Błąd w schemacie.";
         }
     }
     setErrors(errors);

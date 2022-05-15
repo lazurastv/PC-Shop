@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<xs:element name="users">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="user" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+<xs:element name="user">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element name="id" type="xs:long"/>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="lastName" type="xs:string"/>
+      <xs:element name="birthDate" type="xs:date"/>
+      <xs:element name="PESEL" type="xs:string"/>
+      <xs:element name="email" type="xs:string"/>
+      <xs:element name="phoneNumber" type="xs:string"/>
+      <xs:element name="address" type="xs:string"/>
+      <xs:element name="creditCardNumber" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+
+</xs:schema>
