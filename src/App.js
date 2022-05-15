@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './App.css';
+import { ComputerAddUserForm } from './forms/ComputerAddUserForm';
 import { ComputerForm } from './forms/ComputerForm';
 import { GraphicsCardForm } from './forms/GraphicsCardForm';
 import { MotherboardForm } from './forms/MotherboardForm';
@@ -13,8 +14,9 @@ import { UserList } from './tables/UserList';
 
 function App() {
   const pages = ["Procesory", "Płyty główne", "Komputery", "Użytkownicy", "Karty graficzne"];
+  const options = ["Wyświetl", "Dodaj", "Dodaj użytkownika"];
   const [visiblePage, setVisiblePage] = useState(0);
-  const [addItem, setAddItem] = useState(false);
+  const [visibleOption, setVisibleOption] = useState(0);
   return (
     <div className="app">
       <div className="buttons">
@@ -23,15 +25,18 @@ function App() {
         }
       </div>
       <div className='buttons'>
-        <button onClick={() => setAddItem(false)}>Wyświetl</button>
-        <button onClick={() => setAddItem(true)}>Dodaj</button>
+        <button onClick={() => setVisibleOption(0)}>Wyświetl</button>
+        <button onClick={() => setVisibleOption(1)}>Dodaj</button>
+        {
+          visiblePage === 2 && <button onClick={() => setVisibleOption(2)}>Dodaj użytkownika</button>
+        }
       </div>
       {
-        visiblePage === 0 ? (!addItem ? <ProcessorList /> : <ProcessorForm />) :
-          visiblePage === 1 ? (!addItem ? <MotherboardList /> : <MotherboardForm />) :
-            visiblePage === 2 ? (!addItem ? <ComputerList /> : <ComputerForm />) :
-              visiblePage === 3 ? (!addItem ? <UserList /> : <UserForm />) :
-                !addItem ? <GraphicsCardList /> : <GraphicsCardForm />
+        visiblePage === 0 ? (!visibleOption ? <ProcessorList /> : <ProcessorForm />) :
+          visiblePage === 1 ? (!visibleOption ? <MotherboardList /> : <MotherboardForm />) :
+            visiblePage === 2 ? (!visibleOption ? <ComputerList /> : (visibleOption === 1 ? <ComputerForm /> : <ComputerAddUserForm />)) :
+              visiblePage === 3 ? (!visibleOption ? <UserList /> : <UserForm />) :
+                !visibleOption ? <GraphicsCardList /> : <GraphicsCardForm />
       }
     </div>
   );
