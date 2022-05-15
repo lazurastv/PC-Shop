@@ -4,6 +4,7 @@ import { ComputerForm } from './forms/ComputerForm';
 import { GraphicsCardForm } from './forms/GraphicsCardForm';
 import { MotherboardForm } from './forms/MotherboardForm';
 import { ProcessorForm } from './forms/ProcessorForm';
+import { UserForm } from './forms/UserForm';
 import { ComputerList } from './tables/ComputerList';
 import { GraphicsCardList } from './tables/GraphicsCardList';
 import { MotherboardList } from './tables/MotherboardList';
@@ -29,7 +30,7 @@ function App() {
         visiblePage === 0 ? (!addItem ? <ProcessorList /> : <ProcessorForm />) :
           visiblePage === 1 ? (!addItem ? <MotherboardList /> : <MotherboardForm />) :
             visiblePage === 2 ? (!addItem ? <ComputerList /> : <ComputerForm />) :
-              visiblePage === 3 ? <UserList /> :
+              visiblePage === 3 ? (!addItem ? <UserList /> : <UserForm />) :
                 !addItem ? <GraphicsCardList /> : <GraphicsCardForm />
       }
     </div>
