@@ -26,7 +26,6 @@ function filterComputers(computers, filters) {
     for (const [key, value] of Object.entries(filters)) {
         newComputers = newComputers.filter(x => JSON.stringify(x[headerMapping[key]]).includes(value));
     }
-    console.log(newComputers);
     return newComputers;
 }
 
