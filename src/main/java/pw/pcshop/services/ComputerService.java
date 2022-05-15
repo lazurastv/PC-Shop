@@ -16,6 +16,7 @@ import pw.pcshop.repositories.UserRepository;
 import pw.pcshop.verifiers.ComputerVerifier;
 import pw.pcshop.verifiers.VerifierUtils;
 import pw.pcshop.viewModels.ComputerAddUser;
+import pw.pcshop.viewModels.ComputerFullInfoVM;
 import pw.pcshop.viewModels.ComputerVM;
 
 @Service
@@ -29,6 +30,10 @@ public class ComputerService {
 
     public List<ComputerVM> getAll() {
         return ComputerVM.toComputerVMs(computerRepository.findAll());
+    }
+
+    public List<ComputerFullInfoVM> getFullInfo(List<Long> ids) {
+        return ComputerFullInfoVM.toComputerVMs(computerRepository.findAllById(ids));
     }
 
     public void add(ComputerVM computerVM) {

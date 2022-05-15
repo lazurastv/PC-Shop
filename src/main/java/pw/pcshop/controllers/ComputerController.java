@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import pw.pcshop.services.ComputerService;
 import pw.pcshop.viewModels.ComputerAddUser;
+import pw.pcshop.viewModels.ComputerFullInfoVM;
 import pw.pcshop.viewModels.ComputerVM;
 
 @RestController
@@ -28,6 +29,11 @@ public class ComputerController {
     @GetMapping
     public List<ComputerVM> getAll() {
         return computerService.getAll();
+    }
+
+    @GetMapping(path = "fullInfo/{ids}")
+    public List<ComputerFullInfoVM> getFullInfo(@PathVariable("ids") List<Long> ids) {
+        return computerService.getFullInfo(ids);
     }
 
     @GetMapping(path = "{id}")

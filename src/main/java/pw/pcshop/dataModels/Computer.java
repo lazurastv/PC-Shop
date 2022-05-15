@@ -71,7 +71,7 @@ public class Computer {
         users.add(user);
     }
 
-    public List<Long> getUsers() {
+    public List<Long> getUserIds() {
         List<Long> users = new ArrayList<>();
         for (User user : this.users) {
             users.add(user.getId());

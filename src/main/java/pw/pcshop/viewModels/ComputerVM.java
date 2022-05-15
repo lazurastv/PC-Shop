@@ -28,7 +28,7 @@ public class ComputerVM {
         processorId = computer.getProcessor().getId();
         graphicsCardId = computer.getGraphicsCard().getId();
         motherboardId = computer.getMotherboard().getId();
-        userIds = computer.getUsers();
+        userIds = computer.getUserIds();
         model = computer.getModel();
         operatingSystem = computer.getOperatingSystem();
         RAM = computer.getRAM();
