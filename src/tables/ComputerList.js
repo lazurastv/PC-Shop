@@ -46,7 +46,7 @@ export function ComputerList() {
     }
 
     return (
-        <main style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+        <main style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "20px" }}>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
                 {
                     tableHeaders.map(header =>
