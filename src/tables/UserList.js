@@ -57,16 +57,16 @@ async function addFromXML(xml, setErrors) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(xml, "application/xml");
     const jsonString = xml2json(doc, '');
-    let users = JSON.parse(jsonString).users;
+    let users = JSON.parse(jsonString).users.user;
     if (!(users instanceof Array)) {
-        users = [users.user];
+        users = [users];
     }
     const errors = {};
-    for (const user of users) {
+    for (const [index, user] of Object.entries(users)) {
         const response = await fetch("http://localhost:8080/api/user", { method: "POST", body: JSON.stringify(user), headers: { "Content-Type": "application/json" } })
         if (response.status !== 201) {
             const responseJson = await response.json();
-            errors[user.id] = responseJson.message;
+            errors[parseInt(index) + 1] = responseJson.message;
         }
     }
     setErrors(errors);
