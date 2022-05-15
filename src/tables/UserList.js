@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { xml2json } from "../xml2json";
 
 const tableHeaders = ["Id", "Imię", "Nazwisko", "Data urodzenia", "PESEL", "Adres email", "Numer telefonu", "Adres", "Numer karty kredytowej"];
 const headerMapping = {
@@ -52,11 +53,29 @@ function download(users) {
     document.body.removeChild(element);
 }
 
-function upload(file) {
+async function addFromXML(xml, setErrors) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(xml, "application/xml");
+    const jsonString = xml2json(doc, '');
+    let users = JSON.parse(jsonString).users;
+    if (!(users instanceof Array)) {
+        users = [users.user];
+    }
+    const errors = {};
+    for (const user of users) {
+        const response = await fetch("http://localhost:8080/api/user", { method: "POST", body: JSON.stringify(user), headers: { "Content-Type": "application/json" } })
+        if (response.status !== 201) {
+            const responseJson = await response.json();
+            errors[user.id] = responseJson.message;
+        }
+    }
+    setErrors(errors);
+}
+
+function upload(file, callback) {
     const fileData = file.target.files[0];
     const reader = new FileReader();
-    let content = "";
-    reader.addEventListener('load', event => { content = event.target.result; console.log(content); });
+    reader.addEventListener('load', event => addFromXML(event.target.result, callback));
     reader.readAsText(fileData);
 }
 
@@ -64,6 +83,8 @@ export function UserList() {
     const [users, setUsers] = useState();
     const [filteredUsers, setFilteredUsers] = useState();
     const [filters, setFilters] = useState({});
+    const [fileLoadErrors, setFileLoadErrors] = useState({});
+    const [fileLoadTable, setFileLoadTable] = useState(false);
 
     if (!users) {
         fetch("http://localhost:8080/api/user").then(response => response.json()).then(body => {
@@ -73,51 +94,85 @@ export function UserList() {
         })
     }
     return (
-        <main style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "20px" }}>
-            <div style={{ display: "flex", gap: "10px" }}>
-                <button onClick={() => download(filteredUsers)}>Pobierz raport</button>
-                <input id="selectedFile" style={{ display: 'none' }} type="file" accept="text/xml" onChange={(value) => upload(value)}></input>
-                <button onClick={() => document.getElementById('selectedFile').click()}>Wczytaj z pliku</button>
-            </div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+        !fileLoadTable ? (
+            <main style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "20px" }}>
+                <div style={{ display: "flex", gap: "10px" }}>
+                    <button onClick={() => download(filteredUsers)}>Pobierz raport</button>
+                    <input id="selectedFile" style={{ display: 'none' }} type="file" accept="text/xml" onChange={value => {
+                        upload(value, setFileLoadErrors); setFileLoadTable(true);
+                    }}></input>
+                    <button onClick={() => document.getElementById('selectedFile').click()}>Wczytaj z pliku</button>
+                </div>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+                    {
+                        tableHeaders.map(header =>
+                            <div key={header}>
+                                <label htmlFor={header} style={{ marginRight: "10px" }}>{header}</label>
+                                <input id={header} onChange={value => {
+                                    const newFilters = { ...filters };
+                                    newFilters[header] = value.target.value;
+                                    setFilters(newFilters);
+                                    setFilteredUsers(filterUsers(users, newFilters));
+                                }}></input>
+                            </div>
+                        )
+                    }
+                </div>
                 {
-                    tableHeaders.map(header =>
-                        <div key={header}>
-                            <label htmlFor={header} style={{ marginRight: "10px" }}>{header}</label>
-                            <input id={header} onChange={value => {
-                                const newFilters = { ...filters };
-                                newFilters[header] = value.target.value;
-                                setFilters(newFilters);
-                                setFilteredUsers(filterUsers(users, newFilters));
-                            }}></input>
-                        </div>
-                    )
-                }
-            </div>
-            {
-                filteredUsers?.length > 0 ?
-                    <table>
-                        <thead>
-                            <tr>
+                    filteredUsers?.length > 0 ?
+                        <table>
+                            <thead>
+                                <tr>
+                                    {
+                                        tableHeaders.map(header => <th key={header}>{header}</th>)
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
                                 {
-                                    tableHeaders.map(header => <th key={header}>{header}</th>)
+                                    filteredUsers.map(user =>
+                                        <tr key={user.id}>
+                                            {Object.keys(user).map(header =>
+                                                <td key={header}>{user[header]}</td>
+                                            )}
+                                        </tr>)
                                 }
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                filteredUsers.map(user =>
-                                    <tr key={user.id}>
-                                        {Object.keys(user).map(header =>
-                                            <td key={header}>{user[header]}</td>
-                                        )}
-                                    </tr>)
-                            }
-                        </tbody>
-                    </table >
-                    :
-                    <p>Brak wyników.</p>
-            }
-        </main >
-    );
+                            </tbody>
+                        </table >
+                        :
+                        <p>Brak wyników.</p>
+                }
+            </main >) : (
+            <main style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                {
+                    Object.keys(fileLoadErrors).length ? (
+                        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                            <h3>Napotkano błędy dla następujących obiektów:</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Błąd</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        Object.keys(fileLoadErrors).map(x =>
+                                            <tr key={x}>
+                                                <td>{x}</td>
+                                                <td>{fileLoadErrors[x]}</td>
+                                            </tr>
+                                        )
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    ) :
+                        <p>Wczytywanie zakończone pomyślnie.</p>
+                }
+                <button style={{ marginTop: "20px", width: "100px" }} onClick={() => { setFileLoadTable(false); setUsers(); }}>OK</button>
+            </main>
+        )
+
+    )
 }
