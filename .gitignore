@@ -1,0 +1,6 @@
+*.docx
+*.pdf
+.vscode
+HELP.md
+target
+node_modules
